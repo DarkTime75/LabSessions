@@ -2,10 +2,7 @@ import os
 currentDirectory = os.path.dirname(__file__)
 FILE_NAME = f"{currentDirectory}\\file.txt"
 
-word_counts = {}
-
-def second(ele):
-    return ele[1]
+wordCounts = {}
 
 def removePunctuations(string):
     PUNCTUATIONS = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
@@ -18,11 +15,16 @@ with open(FILE_NAME, 'r') as file:
     for line in file:
         line = removePunctuations(line).lower()
         for word in line.split():
-            if word in word_counts:
-                word_counts[word] += 1
+            if word in wordCounts:
+                wordCounts[word] += 1
             else:
-                word_counts[word] = 1
+                wordCounts[word] = 1
                 
-lst = list(word_counts.items())
-lst.sort(key = second, reverse = True)
-print(dict(lst[:10]))
+lst = []
+for key, val in list(wordCounts.items()):
+    lst.append((val, key))
+lst.sort(reverse=True) 
+finalList = []
+for val, key in lst:
+    finalList.append((key, val))
+print(dict(finalList[:10]))
