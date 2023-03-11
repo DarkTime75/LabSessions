@@ -3,6 +3,7 @@ currentDirectory = os.path.dirname(__file__)
 FILE_NAME = f"{currentDirectory}\\file.txt"
 
 wordCounts = {}
+fileHandler = open(FILE_NAME, 'r')
 
 def removePunctuations(string):
     PUNCTUATIONS = '''!()-[]{};:'"\,<>./?@#$%^&*_~'''
@@ -11,14 +12,14 @@ def removePunctuations(string):
             string = string.replace(ele, "")
     return string
 
-with open(FILE_NAME, 'r') as file:
-    for line in file:
-        line = removePunctuations(line).lower()
-        for word in line.split():
-            if word in wordCounts:
-                wordCounts[word] += 1
-            else:
-                wordCounts[word] = 1
+
+for line in fileHandler:
+    line = removePunctuations(line).lower()
+    for word in line.split():
+        if word in wordCounts:
+            wordCounts[word] += 1
+        else:
+            wordCounts[word] = 1
                 
 lst = []
 for key, val in list(wordCounts.items()):
